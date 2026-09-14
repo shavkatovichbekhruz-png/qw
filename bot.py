@@ -25,6 +25,7 @@ from aiogram.types import (
     Message, CallbackQuery,
     InlineKeyboardMarkup, InlineKeyboardButton,
     ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove,
+    FSInputFile,
 )
 from dotenv import load_dotenv
 
@@ -176,9 +177,9 @@ async def export_excel(message: Message):
     if message.from_user.id != ADMIN_ID:
         return
 
-    from export_excel import make_excel_file  # 4-qadamda yozamiz
+    from export_excel import make_excel_file
     filepath = make_excel_file()
-    await message.answer_document(document=open(filepath, "rb"))
+    await message.answer_document(document=FSInputFile(filepath))
 
 
 # ========== Botni ishga tushirish ==========
